@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import springfive.cms.domain.models.Category;
 import springfive.cms.domain.service.CategoryService;
+import springfive.cms.domain.vo.CategoryRequest;
 
 @RestController
 @RequestMapping("/api/category")
@@ -50,7 +52,7 @@ public class CategoryResource {
             @ApiResponse(code = 404,message = "Category not found")
     })
     public ResponseEntity<List<Category>> findAll(){
-        return ResponseEntity.ok(Arrays.asList(new Category(), new Category()));
+        return ResponseEntity.ok(this.categoryService.findAll());
     }
 
     @PostMapping
@@ -59,8 +61,8 @@ public class CategoryResource {
             @ApiResponse(code = 201,message = "Category created successfully"),
             @ApiResponse(code = 400,message = "Invalid request")
     })
-    public ResponseEntity<Category> newCatetory(){
-        return new ResponseEntity<>(new Category(), HttpStatus.CREATED);
+    public ResponseEntity<Category> newCategory(@RequestBody CategoryRequest category){
+        return new ResponseEntity<>(this.categoryService.create(category), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
