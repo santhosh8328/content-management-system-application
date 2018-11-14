@@ -33,3 +33,7 @@ navigate to the url:
 `docker run -d --name mongodb --net cms-application --port 27017:27017 mongo:latest`
 
 `docker run -d --name postgres --net cms-application --port 27017:27017 postgres:9.6.6:alpine`
+
+## connect mongo express (admin app for database)
+
+`docker run -d --link mongodb:mongo --net cms-application -p 8081:8081 mongo-express`
