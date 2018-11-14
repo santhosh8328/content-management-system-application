@@ -8,8 +8,13 @@ import springfive.cms.domain.models.Tag;
 
 @Data
 public class NewsRequest {
+
     String title;
+
     String content;
+
     Set<Category> categories;
+
     Set<Tag> tags;
+    
 }

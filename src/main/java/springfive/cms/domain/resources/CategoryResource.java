@@ -1,6 +1,5 @@
 package springfive.cms.domain.resources;
 
-import java.util.Arrays;
 import java.util.List;
 
 import io.swagger.annotations.Api;
@@ -68,11 +67,12 @@ public class CategoryResource {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "Update category", notes = "It permits to update a category")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Category update successfully"),
             @ApiResponse(code = 404, message = "Category not found"),
             @ApiResponse(code = 400, message = "Invalid request") })
-    public ResponseEntity<Category> updateCategory(@PathVariable("id") String id) {
+    public ResponseEntity<Category> updateCategory(@PathVariable("id") String id, CategoryRequest category) {
         return new ResponseEntity<>(new Category(), HttpStatus.OK);
     }
 

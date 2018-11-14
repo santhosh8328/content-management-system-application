@@ -1,14 +1,10 @@
 package springfive.cms.domain.repository;
 
-import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Service;
 
 import springfive.cms.domain.models.Category;
 
-public interface CategoryRepository extends JpaRepository<Category, String> {
-
-    List<Category> findByName(String name);
-
-    List<Category> findByNameIgnoreCaseStartingWith(String name);
-
+@Service
+public interface CategoryRepository extends MongoRepository<Category, String> {
 }
