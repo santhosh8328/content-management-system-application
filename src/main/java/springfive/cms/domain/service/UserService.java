@@ -15,7 +15,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User update(String id,UserRequest userRequest){
+    public User update(String id, UserRequest userRequest) {
         final User user = this.userRepository.findOne(id);
         user.setIdentity(userRequest.getIdentity());
         user.setName(userRequest.getName());
@@ -23,7 +23,7 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public User create(UserRequest userRequest){
+    public User create(UserRequest userRequest) {
         User user = new User();
         user.setId(UUID.randomUUID().toString());
         user.setIdentity(userRequest.getIdentity());
@@ -32,16 +32,16 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public void delete(String id){
+    public void delete(String id) {
         final User user = this.userRepository.findOne(id);
         this.userRepository.delete(user);
     }
 
-    public Iterable<User> findAll(){
+    public Iterable<User> findAll() {
         return this.userRepository.findAll();
     }
 
-    public User findOne(String id){
+    public User findOne(String id) {
         return this.userRepository.findOne(id);
     }
 

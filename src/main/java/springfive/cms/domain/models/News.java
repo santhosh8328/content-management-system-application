@@ -16,8 +16,8 @@ public class News {
     Set<Tag> tags = new HashSet<>();
 
     public Boolean revised() {
-        return this.mandatoryReviewers.stream().allMatch( reviewer -> this.reviewers.stream()
-                .anyMatch( review -> reviewer.id.equals(review.userId) && "approved".equals(review.status)));
+        return this.mandatoryReviewers.stream().allMatch(reviewer -> this.reviewers.stream()
+                .anyMatch(review -> reviewer.id.equals(review.userId) && "approved".equals(review.status)));
     }
 
     public Review review(String userId, String status) {
