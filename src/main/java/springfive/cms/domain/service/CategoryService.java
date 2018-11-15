@@ -29,8 +29,7 @@ public class CategoryService {
     }
 
     public void delete(String id) {
-        final Optional<Category> category = this.categoryRepository.findone(id);
-        category.ifPresent(this.categoryRepository::delete);
+        Category category = this.categoryRepository.findById(id).get();
     }
 
     public List<Category> findAll() {
@@ -38,6 +37,6 @@ public class CategoryService {
     }
 
     public Category findOne(String id) {
-        return this.categoryRepository.findOne(id);
+        return this.categoryRepository.findById(id).get();
     }
 }

@@ -39,7 +39,7 @@ public class CategoryResource {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Category found"),
             @ApiResponse(code = 404, message = "Category not found"), })
     public ResponseEntity<Category> findOne(@PathVariable("id") String id) {
-        return ResponseEntity.ok(new Category());
+        return ResponseEntity.ok(this.categoryService.findOne(id));
     }
 
     @GetMapping
@@ -54,8 +54,8 @@ public class CategoryResource {
     @ApiOperation(value = "Create category", notes = "It permits to create a new category")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Category created successfully"),
             @ApiResponse(code = 400, message = "Invalid request") })
-    public ResponseEntity<Category> newCategory(@RequestBody CategoryRequest category) {
-        return new ResponseEntity<>(this.categoryService.create(category), HttpStatus.CREATED);
+    public ResponseEntity<Category> newCategory(@RequestBody CategoryRequest categoryRequest) {
+        return new ResponseEntity<>(this.categoryService.create(categoryRequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -72,8 +72,10 @@ public class CategoryResource {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Category update successfully"),
             @ApiResponse(code = 404, message = "Category not found"),
             @ApiResponse(code = 400, message = "Invalid request") })
-    public ResponseEntity<Category> updateCategory(@PathVariable("id") String id, CategoryRequest category) {
-        return new ResponseEntity<>(new Category(), HttpStatus.OK);
+    public ResponseEntity<Category> updateCategory(@PathVariable("id") String id,@RequestBody CategoryRequest categoryRequest) {
+        Category category = this.categoryService.findOne(id);
+        category.setName(categoryRequest.getName());
+        return new ResponseEntity<>(this.categoryService.update(category), HttpStatus.OK);
     }
 
 }
