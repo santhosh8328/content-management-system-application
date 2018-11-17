@@ -29,7 +29,6 @@ public class UserService {
 
     public Mono<User> create(UserRequest userRequest) {
         User user = new User();
-        user.setId(UUID.randomUUID().toString());
         user.setIdentity(userRequest.getIdentity());
         user.setName(userRequest.getName());
         user.setRole(userRequest.getRole());
