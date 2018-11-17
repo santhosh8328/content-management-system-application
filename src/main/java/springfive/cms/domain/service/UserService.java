@@ -2,6 +2,9 @@ package springfive.cms.domain.service;
 
 import java.util.UUID;
 import org.springframework.stereotype.Service;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import springfive.cms.domain.models.User;
 import springfive.cms.domain.repository.UserRepository;
 import springfive.cms.domain.vo.UserRequest;
@@ -15,16 +18,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User update(String id, UserRequest userRequest) {
-        final User user = this.userRepository.findById(id).get();
-
-        user.setIdentity(userRequest.getIdentity());
-        user.setName(userRequest.getName());
-        user.setRole(userRequest.getRole());
-        return this.userRepository.save(user);
+    public Mono<User> update(String id, UserRequest userRequest) {
+        return this.userRepository.findById(id).flatMap( user -> {
+            user.setIdentity(userRequest.getIdentity());
+            user.setName(userRequest.getName());
+            user.setRole(userRequest.getRole());
+            return this.userRepository.save(user);
+        });
     }
 
-    public User create(UserRequest userRequest) {
+    public Mono<User> create(UserRequest userRequest) {
         User user = new User();
         user.setId(UUID.randomUUID().toString());
         user.setIdentity(userRequest.getIdentity());
@@ -34,16 +37,15 @@ public class UserService {
     }
 
     public void delete(String id) {
-        final User user = this.userRepository.findById(id).get();
-        this.userRepository.delete(user);
+        this.userRepository.deleteById(id);
     }
 
-    public Iterable<User> findAll() {
+    public Flux<User> findAll() {
         return this.userRepository.findAll();
     }
 
-    public User findOne(String id) {
-        return this.userRepository.findById(id).get();
+    public Mono<User> findOne(String id) {
+        return this.userRepository.findById(id);
     }
 
 }

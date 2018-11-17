@@ -2,6 +2,9 @@ package springfive.cms.domain.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import springfive.cms.domain.exceptions.CategoryNotFoundException;
 import springfive.cms.domain.models.Category;
 import springfive.cms.domain.repository.CategoryRepository;
@@ -18,25 +21,28 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category update(Category category) {
-        return this.categoryRepository.save(category);
+    public Mono<Category> update(String id, CategoryRequest category) {
+        return this.categoryRepository.findById(id).flatMap( categoryDatabase -> {
+            categoryDatabase.setName(category.getName());
+            return this.categoryRepository.save(categoryDatabase);
+        });
     }
 
-    public Category create(CategoryRequest request) {
+    public Mono<Category> create(CategoryRequest request) {
         Category category = new Category();
         category.setName(request.getName());
         return this.categoryRepository.save(category);
     }
 
     public void delete(String id) {
-        Category category = this.categoryRepository.findById(id).get();
+        this.categoryRepository.deleteById(id);
     }
 
-    public List<Category> findAll() {
+    public Flux<Category> findAll() {
         return this.categoryRepository.findAll();
     }
 
-    public Category findOne(String id) {
-        return this.categoryRepository.findById(id).get();
+    public Mono<Category> findOne(String id) {
+        return this.categoryRepository.findById(id);
     }
 }
