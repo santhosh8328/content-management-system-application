@@ -19,10 +19,10 @@ import springfive.cms.domain.models.Review;
 import springfive.cms.domain.vo.NewsRequest;
 
 @RestController
-@RequestMapping("/api/news")
+@RequestMapping(value = "${app.api.news.controller}")
 public class NewsResource {
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "${app.api.news.id}")
     public ResponseEntity<News> findOne(@PathVariable("id") String id) {
         return ResponseEntity.ok(new News());
     }
@@ -37,22 +37,22 @@ public class NewsResource {
         return new ResponseEntity<>(new News(), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "${app.api.news.id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeNews(@PathVariable("id") String id) {
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "${app.api.news.id}")
     public ResponseEntity<News> updateNews(@PathVariable("id") String id, NewsRequest news) {
         return new ResponseEntity<>(new News(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}/review/{userId}")
+    @GetMapping(value = "${app.api.news.review}")
     public ResponseEntity<Review> review(@PathVariable("id") String id, @PathVariable("userId") String userId) {
         return ResponseEntity.ok(new Review());
     }
 
-    @GetMapping(value = "/revised")
+    @GetMapping(value = "${app.api.news.revised}")
     public ResponseEntity<List<News>> revisedNews() {
         return ResponseEntity.ok(Arrays.asList(new News(), new News()));
     }

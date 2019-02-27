@@ -21,7 +21,7 @@ import springfive.cms.domain.service.CategoryService;
 import springfive.cms.domain.vo.CategoryRequest;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping(value = "${app.api.category.controller}")
 public class CategoryResource {
 
     private final CategoryService categoryService;
@@ -30,7 +30,7 @@ public class CategoryResource {
         this.categoryService = categoryService;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "${app.api.category.id}")
     public ResponseEntity<Mono<Category>> findOne(@PathVariable("id") String id) {
         return ResponseEntity.ok(this.categoryService.findOne(id));
     }
@@ -45,12 +45,12 @@ public class CategoryResource {
         return new ResponseEntity<>(this.categoryService.create(categoryRequest), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "${app.api.category.id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeCategory(@PathVariable("id") String id) {
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "${app.api.category.id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Mono<Category>> updateCategory(@PathVariable("id") String id, @RequestBody CategoryRequest categoryRequest) {
         return new ResponseEntity<>(this.categoryService.update(id, categoryRequest), HttpStatus.OK);

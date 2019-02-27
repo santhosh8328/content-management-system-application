@@ -19,7 +19,7 @@ import springfive.cms.domain.service.UserService;
 import springfive.cms.domain.vo.UserRequest;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping(value = "${app.api.user.controller}")
 public class UserResource {
 
     private UserService userService;
@@ -28,7 +28,7 @@ public class UserResource {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "${app.api.user.id}")
     public ResponseEntity<Mono<User>> findOne(@PathVariable("id") String id) {
         return ResponseEntity.ok(this.userService.findOne(id));
     }
@@ -43,12 +43,12 @@ public class UserResource {
         return new ResponseEntity<>(this.userService.create(userRequest), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("${app.api.user.id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeUser(@PathVariable("id") String id) {
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("${app.api.user.id}")
     public ResponseEntity<Mono<User>> updateUser(@PathVariable("id") String id, @RequestBody UserRequest userRequest) {
         return new ResponseEntity<>(this.userService.update(id, userRequest), HttpStatus.OK);
     }
