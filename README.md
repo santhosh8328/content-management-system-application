@@ -14,15 +14,15 @@ The following the list will be worked:
 `mvn clean install spring-boot:run`
 
 navigate to the url:
-{get, post, put, delete} http://localhost:8080/category
-{get, post, put, delete} http://localhost:8080/user
-{get, post, put, delete} http://localhost:8080/news
+{get, post, put, delete} http://localhost:8080/api/category
+{get, post, put, delete} http://localhost:8080/api/user
+{get, post, put, delete} http://localhost:8080/api/news
 
 ## Swagger api
 
 `http://localhost:8080/swagger-ui.html`
 
-## setup database under running docker envirnoment
+## setup database under running docker environment
 
 `docker pull postgres:9.6.6:alpine`
 
